@@ -9,6 +9,7 @@ The linked list in this package can only hold strings.
 Linked lists allow the following operations:
 
 + `Append`
+  
   `Append` adds an node to the end of the Linked List.
   It is a `O(n)` operation, since the list has to be fully traversed to add a new node at the end.
 
