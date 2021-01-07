@@ -6,27 +6,35 @@ import (
 
 // LinkedList is a linked list as specified by https://www.tutorialspoint.com/data_structures_algorithms/linked_list_algorithms.htm
 type LinkedList interface {
+	// Append adds an item to the end of a linkedlist
 	Append(node *Node)
+
+	// Prepend adds an element to the head of the linked list.
 	Prepend(node *Node)
+
+	// Contains returns true if an element is found within a list.
 	Contains(value string) bool
+
+	// Delete removes a node from the linked list.
 	Delete(target *Node) error
+
+	// Traverse returns a []string with all elements in a list.
 	Traverse() []string
 }
 
 type linkedList struct {
-	Head *Node
+	head *Node
 }
 
 // NewLinkedList returns a linked list
 func NewLinkedList() LinkedList {
 	return &linkedList{
-		Head: &Node{},
+		head: &Node{},
 	}
 }
 
-// Append adds an item to the end of a linkedlist
 func (l *linkedList) Append(node *Node) {
-	current := l.Head
+	current := l.head
 	for {
 		if current.next == nil {
 			current.next = node
@@ -37,16 +45,14 @@ func (l *linkedList) Append(node *Node) {
 	}
 }
 
-// Prepend adds an element to the head of the linked list.
 func (l *linkedList) Prepend(node *Node) {
-	first := l.Head.next
-	l.Head.next = node
+	first := l.head.next
+	l.head.next = node
 	node.next = first
 }
 
-// Contains returns true if an element is found within a list.
 func (l *linkedList) Contains(value string) bool {
-	current := l.Head.next
+	current := l.head.next
 	for {
 		if current == nil {
 			return false
@@ -60,7 +66,7 @@ func (l *linkedList) Contains(value string) bool {
 }
 
 func (l *linkedList) Delete(target *Node) error {
-	current := l.Head
+	current := l.head
 	for {
 		if current.next == target {
 			current.next = current.next.next
@@ -76,10 +82,9 @@ func (l *linkedList) Delete(target *Node) error {
 
 }
 
-// Traverse returns a []string with all elements in a list.
 func (l *linkedList) Traverse() []string {
 	// Start at the node after the head.
-	current := l.Head.next
+	current := l.head.next
 	items := []string{}
 	for {
 		// If we hit the end of the list, return all collected items so far.
