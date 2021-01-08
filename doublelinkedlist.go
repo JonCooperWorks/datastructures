@@ -60,6 +60,9 @@ func (d *doubleLinkedList) Append(node *DoubleLinkedNode) {
 }
 
 func (d *doubleLinkedList) Contains(value string) bool {
+	d.mu.Lock()
+	defer d.mu.Unlock()
+
 	current := d.head.next
 	for {
 		if current == nil {

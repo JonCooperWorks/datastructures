@@ -60,6 +60,9 @@ func (l *linkedList) Prepend(node *Node) {
 }
 
 func (l *linkedList) Contains(value string) bool {
+	l.mu.Lock()
+	defer l.mu.Unlock()
+
 	current := l.head.next
 	for {
 		if current == nil {
@@ -94,6 +97,9 @@ func (l *linkedList) Delete(target *Node) error {
 }
 
 func (l *linkedList) Traverse() []string {
+	l.mu.Lock()
+	defer l.mu.Unlock()
+
 	// Start at the node after the head.
 	current := l.head.next
 	items := []string{}
