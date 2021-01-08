@@ -2,6 +2,7 @@ package datastructures
 
 import (
 	"fmt"
+	"sync"
 )
 
 // LinkedList is a linked list as specified by https://www.tutorialspoint.com/data_structures_algorithms/linked_list_algorithms.htm
@@ -24,6 +25,7 @@ type LinkedList interface {
 
 type linkedList struct {
 	head *Node
+	mu   sync.Mutex
 }
 
 // NewLinkedList returns a linked list
@@ -34,6 +36,9 @@ func NewLinkedList() LinkedList {
 }
 
 func (l *linkedList) Append(node *Node) {
+	l.mu.Lock()
+	defer l.mu.Unlock()
+
 	current := l.head
 	for {
 		if current.next == nil {
@@ -46,6 +51,9 @@ func (l *linkedList) Append(node *Node) {
 }
 
 func (l *linkedList) Prepend(node *Node) {
+	l.mu.Lock()
+	defer l.mu.Unlock()
+
 	first := l.head.next
 	l.head.next = node
 	node.next = first
@@ -66,6 +74,9 @@ func (l *linkedList) Contains(value string) bool {
 }
 
 func (l *linkedList) Delete(target *Node) error {
+	l.mu.Lock()
+	defer l.mu.Unlock()
+
 	current := l.head
 	for {
 		if current.next == target {
