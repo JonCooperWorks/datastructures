@@ -7,11 +7,22 @@ import (
 
 // DoubleLinkedList is a linked list where the nodes maintain a reference to both the previous and next node.
 type DoubleLinkedList interface {
+	// Append adds a node to the end of the list in O(1) time.
 	Append(node *DoubleLinkedNode)
+
+	// Prepend puts a new node at the beginning of the list in O(1) time
 	Prepend(node *DoubleLinkedNode)
+
+	// Contains returns true if a value is in a list, false otherwise in O(n) time.
 	Contains(value string) bool
+
+	// Delete removes an element from the list in O(n) time.
 	Delete(target *DoubleLinkedNode) error
+
+	// Traverse returns all elements in the list as a string slice in O(n) time.
 	Traverse() []string
+
+	// ReverseTraverse returns all elements in the list in reverse order as a string slice in O(n) time.
 	ReverseTraverse() []string
 }
 
@@ -27,7 +38,7 @@ func NewDoubleLinkedList() DoubleLinkedList {
 type doubleLinkedList struct {
 	head *DoubleLinkedNode
 
-	// maintain a pointer to the end of the list so we can ReverseTraverse faster.
+	// maintain a pointer to the end of the list so we can ReverseTraverse faster and append in O(1) time.
 	last *DoubleLinkedNode
 
 	mu sync.Mutex
